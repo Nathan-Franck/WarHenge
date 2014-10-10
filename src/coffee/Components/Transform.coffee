@@ -7,5 +7,4 @@ class Transform extends Component
 	setRotation: (@rotation) -> @
 	getRotation: () -> @rotation
 
-global.Transform = Transform
-window.Transform = Transform
+exports.Transform = Transform

@@ -21,5 +21,4 @@ class Vector2
 	copy: () -> new Vector2 @x, @y
 	equals: (v) -> @x == v.x and @y == v.y
 
-global.Vector2 = Vector2
-window.Vector2 = Vector2
+exports.Vector2 = Vector2

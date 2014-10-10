@@ -1,7 +1,17 @@
 class Entity
 
+	@entities = new Array()
+
+	@foreach: (ComponentClass, action) ->
+		for entity in Entity.entities
+			components = entity.getAll ComponentClass
+			if components?
+				for component in components
+					action(component)
+
 	constructor: () ->
 		@componentBin = {}
+		Entity.entities.push @
 
 	indexOf: (Prototype) ->
 		return Prototype.constructor.name
@@ -32,5 +42,4 @@ class Entity
 		if !(components?) then return null
 		return components
 
-window.Entity = Entity
-global.Entity = Entity
+exports.Entity = Entity

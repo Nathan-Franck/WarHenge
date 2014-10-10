@@ -1,6 +1,7 @@
 class Component
 	setEntity: (@entity) -> @
 	getEntity: () -> @entity
+	serialize: () -> {}
+	deserialize: (obj) -> @
 
-window.Component = Component
-global.Component = Component
+exports.Component = Component

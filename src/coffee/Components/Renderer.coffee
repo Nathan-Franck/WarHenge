@@ -7,5 +7,4 @@ class Renderer extends Component
 	setSprite: (@sprite) -> @
 	getSprite: () -> @sprite
 
-global.Renderer = Renderer
-window.Renderer = Renderer
+exports.Renderer = Renderer

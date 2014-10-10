@@ -4,15 +4,22 @@ class Server
 	jade = require 'jade'
 	http = require 'http'
 	fs = require 'fs'
+	util = require 'util'
+	RequireHelper = (require './RequireHelper').RequireHelper
+	rl = (require 'readline').createInterface({
+		input: process.stdin,
+		output: process.stdout
+	})
 
-	constructor: (port, directory) ->
-		@megaSource = RequireHelper.compileMegaSourceFile directory
-		console.log "ATTN: Server caches files, changes to files will not be acknowledged until restart"
-		@directory = directory
+	constructor: (@port, @directory) ->
+		@commands = ["quit", "help", "updateSource", "clear"]
+		RequireHelper.watchDirectory(@directory, @updateSource)
+		@updateSource()
 		@cache = {}
-		server = http.createServer @handleRequest
-		server.listen port
-		console.log "Server started on port " + port + "!"
+		@server = http.createServer @handleRequest
+		@server.listen @port
+		console.log "Server started on port " + @port + "!"
+		@startInput()
 	processFilename: (filename) =>
 		if filename == '/'
 			filename = '/index.jade';
@@ -53,6 +60,36 @@ class Server
 		filename = @processFilename req.url
 		if !@sendCachedFile filename, res
 			@sendDynamicFile filename, res
+	startInput: () =>
+		rl.setPrompt "> ", 2
+		rl.on 'line', @handleConsoleCommand
+		rl.prompt({preserveCursor: true})
+		console.log = () => @consoleOut("log", arguments);
+		console.warn = () => @consoleOut("warn", arguments);
+		console.info = () => @consoleOut("info", arguments);
+		console.error = () => @consoleOut("error", arguments);
+	handleConsoleCommand: (cmd) =>
+		legal = @commands.indexOf(cmd) >= 0
+		command = this[cmd]
+		if legal and command? 
+			command()
+		rl.prompt()
+	consoleOut: (type, args) ->
+	    t = Math.ceil((rl.line.length + 3) / process.stdout.columns)
+	    text = util.format.apply(console, args)
+	    rl.output.write("\n\x1B[" + t + "A\x1B[0J")
+	    rl.output.write(text + "\n")
+	    rl.output.write(Array(t).join("\n\x1B[E"))
+	    rl._refreshLine()
+	updateSource: () =>
+		@megaSource = RequireHelper.compileMegaSourceFile @directory
+	quit: () =>
+		process.exit()
+	help: () =>
+		console.log "Available commands:"
+		for command in @commands
+			console.log "	" + command
+	clear: () =>
+		process.stdout.write '\u001B[2J\u001B[0;0f'
 
-global.Server = Server
-window.Server = Server
+exports.Server = Server

@@ -1,7 +1,1 @@
-global.window = {}
-
-require './FileHelper'
-require './RequireHelper'
-require './Server'
-
-new Server(8000, __dirname)
+new (require './Server').Server(8000, __dirname)

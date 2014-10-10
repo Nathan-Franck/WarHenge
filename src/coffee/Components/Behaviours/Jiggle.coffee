@@ -6,5 +6,4 @@ class Jiggle extends Behaviour
 		(@entity.get Transform).position.x += @jiggleRate
 		@jiggleRate *= -1
 
-global.Jiggle = Jiggle
-window.Jiggle = Jiggle
+exports.Jiggle = Jiggle

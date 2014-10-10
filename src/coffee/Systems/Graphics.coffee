@@ -2,7 +2,7 @@ class Graphics extends System
 
 	constructor: (width, height) ->
 		@images = {}
-		@stage = new PIXI.Stage 0x33FF55, true
+		@stage = new PIXI.Stage 0x000000, true
 		@renderer = PIXI.autoDetectRenderer width, height
 		@renderer.view.style.position = "absolute"
 		@renderer.view.style.top = "0px"
@@ -21,7 +21,7 @@ class Graphics extends System
 		return image
 
 	update: () =>
-		@entitySystem.foreach Renderer, (renderer) =>
+		Entity.foreach Renderer, (renderer) =>
 			sprite = renderer.getSprite()
 			if sprite == null
 				image = @getImage renderer.image
@@ -31,5 +31,4 @@ class Graphics extends System
 			sprite.position = (renderer.entity.getOrCreate Transform).position
 		@renderer.render(@stage);
 
-window.Graphics = Graphics
-global.Graphics = Graphics
+exports.Graphics = Graphics

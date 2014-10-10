@@ -3,6 +3,10 @@ class RequireHelper
 	coffeescript = require 'coffee-script'
 	fs = require 'fs'
 	uglify = require 'uglify-js'
+	chokidar = require 'chokidar'
+	FileHelper = (require './FileHelper').FileHelper
+
+	@classNames = []
 
 	@translateFile: (filename, data) =>
 		if filename.endsWith ".coffee"
@@ -10,39 +14,58 @@ class RequireHelper
 		return data
 	@findAndExecuteOnSource: (directory, action) ->
 		FileHelper.findAndExecute directory + "/src", /.coffee$|.js$/, action
-	@requireAllSourceFiles: (directory, doOverTolerance) ->
+	@watchDirectory: (directory, action) ->
+		chokidar.watch directory, {ignoreInitial: true, persistent: true}
+		  .on 'add', (path) -> action()
+		  .on 'change', (path) -> action()
+		  .on 'unlink', (path) -> action()
+	@requireAllSourceFiles: (directory, doOverTolerance, verbose = true) -> 
 		console.log "Getting required source files..."
 		tooManyDoOvers = () -> doOvers > doOverTolerance
-		done = []
 		doOvers = 0
 		doAgain = true
 		error = false
+		loaded = []
+		global.window = {}
+		for className in @classNames
+			delete global[className]
 		while doAgain and not error
 			doAgain = false
 			RequireHelper.findAndExecuteOnSource directory, (file) =>
-				if (done.indexOf file) < 0
-					try
-						require "." + file.slice(directory.length).split(".")[0]
-						console.log "	" + file
-						done.push file
+				if (loaded.indexOf file) < 0
+					try	
+						reqSource = RequireHelper.loadFile(directory, file)
+						if verbose 
+							console.log "	" + reqSource
+						loaded.push file
 					catch err
 						if (/is not defined/.exec err.message)? and !tooManyDoOvers()
 							doAgain = true
 						else
-							console.log err.stack
+							if verbose 
+								console.log err.stack
 							error = true
 			doOvers += 1
-		return done
+		return loaded
+	@loadFile: (directory, file) ->
+		reqSource = file.slice(directory.length).split(".")[0]
+		className = ((list) -> list[list.length - 1])(reqSource.split("/"))
+		@classNames.push className
+		delete require.cache[file]
+		req = require "." + reqSource
+		global[className] = req[className]
+		reqSource
 	@compileMegaSourceFile: (directory) ->
 		megaSource = ""
 		requiredFiles = @requireAllSourceFiles directory, 10
 		console.log "Compiling mega-source file..."
 		requiredFiles.forEach (fileName) ->
+			className = fileName.split(".")[0]
 			data = fs.readFileSync fileName, "utf-8"
 			megaSource += RequireHelper.translateFile fileName, data
 			megaSource += "\n"
+		megaSource = megaSource.replace(/exports/g, "window")
 		#megaSource = uglify.minify(megaSource, {fromString: true})
 		return megaSource
 
-global.RequireHelper = RequireHelper
-window.RequireHelper = RequireHelper
+exports.RequireHelper = RequireHelper

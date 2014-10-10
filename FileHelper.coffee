@@ -18,4 +18,4 @@ class FileHelper
 	        	filter = regExp.exec file 
 	        	if filter? then action file
 
-global.FileHelper = FileHelper
+exports.FileHelper = FileHelper
