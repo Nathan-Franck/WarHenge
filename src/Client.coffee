@@ -22,7 +22,7 @@ class Client
 				)
 			)
 
-		for i in [0..2000]
+		for i in [0..20000]
 			new InvisibleJigglyCheckmark()
 				.getOrCreate(Transform)
 				.setPosition(
