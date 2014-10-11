@@ -55,7 +55,7 @@ class RequireHelper
 			return reqSource
 		@classNames.push className
 		delete require.cache[file]
-		req = require "." + reqSource
+		req = require file
 		global[className] = req[className]
 		reqSource
 	@compileMegaSourceFile: (directory) ->

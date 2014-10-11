@@ -5,11 +5,8 @@ class Server
 	http = require 'http'
 	fs = require 'fs'
 	util = require 'util'
-	RequireHelper = (require './RequireHelper').RequireHelper
-	rl = (require 'readline').createInterface({
-		input: process.stdin,
-		output: process.stdout
-	})
+	RequireHelper = (require './Helpers/RequireHelper').RequireHelper
+	rl = require 'readline'
 
 	constructor: (@port, @directory) ->
 		@commands = ["quit", "help", "updateSource", "clear"]
@@ -68,6 +65,10 @@ class Server
 		if !@sendCachedFile filename, res
 			@sendDynamicFile filename, res
 	startInput: () =>
+		rl = rl.createInterface({
+			input: process.stdin,
+			output: process.stdout
+		})
 		rl.setPrompt "> ", 2
 		rl.on 'line', @handleConsoleCommand
 		rl.prompt({preserveCursor: true})

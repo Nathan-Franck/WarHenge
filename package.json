@@ -22,5 +22,8 @@
     "coffee-script": "^1.8.0",
     "jade": "^1.7.0",
     "uglify-js": "^2.4.15"
+  },
+  "scripts": {
+    "preinstall": "sudo npm i -g coffee-script"
   }
 }

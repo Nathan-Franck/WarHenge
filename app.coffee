@@ -1,1 +1,1 @@
-new (require './Server').Server(1234, __dirname)
+new (require './src/coffee/Server').Server(1234, __dirname)
