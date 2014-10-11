@@ -65,7 +65,8 @@ class RequireHelper
 		console.log "Compiling mega-source file..."
 		requiredFiles.forEach (fileName) ->
 			className = ((list) -> list[list.length - 1])(fileName.split(".")[0].split("/"))
-			if RequireHelper.clientIgnore.indexOf className >= 0
+			if RequireHelper.clientIgnore.indexOf(className) >= 0
+				console.log "no good"
 				return
 			data = fs.readFileSync fileName, "utf-8"
 			megaSource += RequireHelper.translateFile fileName, data
