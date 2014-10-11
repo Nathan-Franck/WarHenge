@@ -13,7 +13,7 @@ class Client
 			requestAnimationFrame(mainLoop)
 		requestAnimationFrame(mainLoop)
 
-		for i in [0..100]
+		for i in [0..1000]
 			new JigglyCheckmark()
 				.getOrCreate(Transform)
 				.setPosition(
