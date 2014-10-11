@@ -12,3 +12,9 @@ In base repo directory:
 npm install
 
 This should retrieve all the dependancies
+
+
+Game Sometimes Up At:
+---------------------
+
+http://gunsoftheory.com:1234
