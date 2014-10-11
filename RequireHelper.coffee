@@ -17,9 +17,9 @@ class RequireHelper
 		FileHelper.findAndExecute directory + "/src", /.coffee$|.js$/, action
 	@watchDirectory: (directory, action) ->
 		(chokidar.watch directory, {ignoreInitial: true, persistent: true})
-		  .on 'add', (path) -> action()
-		  .on 'change', (path) -> action()
-		  .on 'unlink', (path) -> action()
+		  .on('add', (path) -> action())
+		  .on('change', (path) -> action())
+		  .on('unlink', (path) -> action())
 	@requireAllSourceFiles: (directory, doOverTolerance, verbose = true) -> 
 		console.log "Getting required source files..."
 		tooManyDoOvers = () -> doOvers > doOverTolerance
