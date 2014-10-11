@@ -26,9 +26,7 @@ class Graphics extends System
 			if sprite == null
 				image = @getImage renderer.image
 				sprite = new PIXI.Sprite(image)
-				console.log sprite.tint
 				sprite.tint = renderer.getTint()
-				console.log sprite.tint
 				@stage.addChild sprite
 				renderer.setSprite(sprite)
 			sprite.position = (renderer.entity.getTransform()).position
