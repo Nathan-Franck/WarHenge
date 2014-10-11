@@ -7,7 +7,8 @@ class RequireHelper
 	FileHelper = (require './FileHelper').FileHelper
 
 	@classNames = []
-	@ignore = ["pixi"]
+	@serverIgnore = ["pixi"]
+	@clientIgnore = ["Server", "RequireHelper", "FileHelper"]
 
 	@translateFile: (filename, data) =>
 		if filename.endsWith ".coffee"
@@ -51,7 +52,7 @@ class RequireHelper
 	@loadFile: (directory, file) ->
 		reqSource = file.slice(directory.length).split(".")[0]
 		className = ((list) -> list[list.length - 1])(reqSource.split("/"))
-		if RequireHelper.ignore.indexOf(className) >= 0
+		if RequireHelper.serverIgnore.indexOf(className) >= 0
 			return reqSource
 		@classNames.push className
 		delete require.cache[file]
@@ -63,7 +64,9 @@ class RequireHelper
 		requiredFiles = @requireAllSourceFiles directory, 10
 		console.log "Compiling mega-source file..."
 		requiredFiles.forEach (fileName) ->
-			className = fileName.split(".")[0]
+			className = ((list) -> list[list.length - 1])(fileName.split(".")[0].split("/"))
+			if RequireHelper.clientIgnore.indexOf className >= 0
+				return
 			data = fs.readFileSync fileName, "utf-8"
 			megaSource += RequireHelper.translateFile fileName, data
 			megaSource += "\n"
