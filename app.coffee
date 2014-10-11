@@ -1,1 +1,1 @@
-new (require './Server').Server(8000, __dirname)
+new (require './Server').Server(1234, __dirname)
