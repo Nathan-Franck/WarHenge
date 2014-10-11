@@ -60,7 +60,7 @@ class Server
 	handleRequest: (req, res) =>
 		if req.url == "/megaSource"
 			if @isSourceDirty
-				updateSource()
+				@updateSource()
 			res.writeHead 200
 			res.end @megaSource
 		filename = @processFilename req.url
