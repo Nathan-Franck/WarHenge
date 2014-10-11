@@ -13,7 +13,7 @@ class Server
 
 	constructor: (@port, @directory) ->
 		@commands = ["quit", "help", "updateSource", "clear"]
-		RequireHelper.watchDirectory(@directory, @updateSource)
+		RequireHelper.watchDirectory(@directory, @markSourceAsDirty)
 		@updateSource()
 		@cache = {}
 		@server = http.createServer @handleRequest
@@ -30,6 +30,10 @@ class Server
 		if filename.endsWith ".jade"
 			return (jade.compile data)()
 		return data
+	markSourceAsDirty: () =>
+		if @isSourceDirty then return
+		@isSourceDirty = true
+		console.log "Source code has changed, will compile at next request"
 	cacheFile: (filename, data) =>
 		@cache[filename] = data
 	retrieveCachedFile: (filename) =>
@@ -55,6 +59,8 @@ class Server
 			fs.readFile filename, handleFile
 	handleRequest: (req, res) =>
 		if req.url == "/megaSource"
+			if @isSourceDirty
+				updateSource()
 			res.writeHead 200
 			res.end @megaSource
 		filename = @processFilename req.url
