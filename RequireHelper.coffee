@@ -16,7 +16,7 @@ class RequireHelper
 	@findAndExecuteOnSource: (directory, action) ->
 		FileHelper.findAndExecute directory + "/src", /.coffee$|.js$/, action
 	@watchDirectory: (directory, action) ->
-		chokidar.watch directory, {ignoreInitial: true, persistent: true}
+		(chokidar.watch directory, {ignoreInitial: true, persistent: true})
 		  .on 'add', (path) -> action()
 		  .on 'change', (path) -> action()
 		  .on 'unlink', (path) -> action()
