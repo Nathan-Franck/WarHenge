@@ -12,9 +12,16 @@ class Client
 				system.update()
 			requestAnimationFrame(mainLoop)
 		requestAnimationFrame(mainLoop)
-
-		for i in [0..1000]
-			new JigglyCheckmark()
+		new JigglyCheckmark()
+			.getOrCreate(Transform)
+			.setPosition(
+				new Vector2(
+					400
+					300
+				)
+			)
+		for i in [0..10000]
+			new InvisibleJigglyCheckmark()
 				.getOrCreate(Transform)
 				.setPosition(
 					new Vector2(
