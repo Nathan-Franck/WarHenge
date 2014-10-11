@@ -61,6 +61,7 @@ class Server
 		if req.url == "/megaSource"
 			if @isSourceDirty
 				@updateSource()
+				@isSourceDirty = false
 			res.writeHead 200
 			res.end @megaSource
 		filename = @processFilename req.url
