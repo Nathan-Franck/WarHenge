@@ -1,4 +1,9 @@
 class Vector2
+	@randomInsideCircle: ->
+		t = Math.random() * Math.PI * 2
+		u = Math.random() + Math.random()
+		r = if u < 1 then u else 2 - u
+		return new Vector2(r * Math.cos(t), r * Math.sin(t))
 	constructor: (@x, @y) ->
 	add: (v) -> 
 		@x += v.x
@@ -8,8 +13,13 @@ class Vector2
 		@x -= v.x
 		@y -= v.y
 		@
-	scale: (x) ->
-		@x *= x
+	mul: (v) ->
+		@x *= v.x
+		@y *= v.y
+		@
+	scale: (s) ->
+		@x *= s
+		@y *= s
 		@
 	perp: (v) ->
 		swap = @y

@@ -7,6 +7,7 @@ class RequireHelper
 	FileHelper = (require './FileHelper').FileHelper
 
 	@classNames = []
+	@ignore = ["pixi"]
 
 	@translateFile: (filename, data) =>
 		if filename.endsWith ".coffee"
@@ -50,6 +51,8 @@ class RequireHelper
 	@loadFile: (directory, file) ->
 		reqSource = file.slice(directory.length).split(".")[0]
 		className = ((list) -> list[list.length - 1])(reqSource.split("/"))
+		if RequireHelper.ignore.indexOf(className) >= 0
+			return reqSource
 		@classNames.push className
 		delete require.cache[file]
 		req = require "." + reqSource

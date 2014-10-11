@@ -1,7 +1,9 @@
-class Component
+class exports.Component
 	setEntity: (@entity) -> @
 	getEntity: () -> @entity
 	serialize: () -> {}
 	deserialize: (obj) -> @
-
-exports.Component = Component
+	kill: () ->
+		DestroySystem.queue @
+	destroy: () ->
+		@entity.remove @

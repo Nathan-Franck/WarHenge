@@ -1,18 +1,26 @@
 class Client
 	constructor: () ->
-		new JigglyCheckmark()
+		systems = [
+			new Time()
+			new BehaviourSystem()
+			new DestroySystem()
+			new Graphics()
+		]
 
-		ent = new Entity()
-		(ent.add Renderer).setImage("img/Success.png")
-		(ent.add Transform).setPosition(new Vector2(40, 40))
-		ent.add Jiggle
+		mainLoop = () ->
+			for system in systems
+				system.update()
+			requestAnimationFrame(mainLoop)
+		requestAnimationFrame(mainLoop)
 
-		new Graphics()
-			.setUpdateRate(1/60)
-			.start()
-
-		new BehaviourSystem()
-			.setUpdateRate(1/2)
-			.start()
+		for i in [0..10000]
+			new JigglyCheckmark()
+				.getOrCreate(Transform)
+				.setPosition(
+					new Vector2(
+						Math.random() * 800
+						Math.random() * 600
+					)
+				)
 
 exports.Client = Client

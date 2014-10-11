@@ -1,6 +1,6 @@
 class BehaviourSystem extends System
 	update: () =>
-		Entity.foreach Behaviour, (behaviour) =>
+		for behaviour in Entity.getAll Behaviour
 			behaviour.update()
 
 exports.BehaviourSystem = BehaviourSystem

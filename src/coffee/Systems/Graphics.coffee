@@ -21,14 +21,17 @@ class Graphics extends System
 		return image
 
 	update: () =>
-		Entity.foreach Renderer, (renderer) =>
+		for renderer in Entity.getAll Renderer
 			sprite = renderer.getSprite()
 			if sprite == null
 				image = @getImage renderer.image
 				sprite = new PIXI.Sprite(image)
+				console.log sprite.tint
+				sprite.tint = renderer.getTint()
+				console.log sprite.tint
 				@stage.addChild sprite
 				renderer.setSprite(sprite)
-			sprite.position = (renderer.entity.getOrCreate Transform).position
+			sprite.position = (renderer.entity.getTransform()).position
 		@renderer.render(@stage);
 
 exports.Graphics = Graphics
