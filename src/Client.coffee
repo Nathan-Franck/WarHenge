@@ -18,7 +18,7 @@ class Client
 			.setPosition(
 				new Vector2(
 					400
-					600
+					300
 				)
 			)
 
