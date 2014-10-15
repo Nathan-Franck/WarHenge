@@ -12,6 +12,7 @@ class Client
 				system.update()
 			requestAnimationFrame(mainLoop)
 		requestAnimationFrame(mainLoop)
+		
 		for i in [0..300]
 			new JigglyCheckmark()
 				.getOrCreate(Transform)
