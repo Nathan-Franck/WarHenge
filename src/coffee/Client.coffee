@@ -11,7 +11,6 @@ class Client
 			for system in systems
 				system.update()
 			requestAnimationFrame(mainLoop)
-		requestAnimationFrame(mainLoop)
 		
 		for i in [0..300]
 			new JigglyCheckmark()
@@ -22,5 +21,7 @@ class Client
 						Math.random() * 600
 					)
 				)
+
+		mainLoop()
 
 exports.Client = Client

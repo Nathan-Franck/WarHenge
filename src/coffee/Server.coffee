@@ -55,7 +55,7 @@ class Server
 		else
 			fs.readFile filename, handleFile
 	handleRequest: (req, res) =>
-		if req.url == "/megaSource"
+		if req.url == "/megaSource.js"
 			if @isSourceDirty
 				@updateSource()
 				@isSourceDirty = false
