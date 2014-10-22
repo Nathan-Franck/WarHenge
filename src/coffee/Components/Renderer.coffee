@@ -1,9 +1,7 @@
 class Renderer extends Component
-	@renderers: []
 	constructor: () ->
 		@image = null
 		@sprite = null
-		Renderer.renderers.push @
 	setImage: (@image) -> @
 	getImage: () -> @image
 	setSprite: (@sprite) -> @

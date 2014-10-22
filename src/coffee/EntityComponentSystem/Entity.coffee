@@ -1,13 +1,13 @@
 class Entity
 
 	@entities = new Array()
-	@foreach: (ComponentClass, action) ->
-		for entity in Entity.entities
-			components = entity.getAll ComponentClass
-			if components?
-				for component in components
-					action(component)
 
+	@foreach: (ComponentClass, action) ->
+		components = Entity.getAll ComponentClass
+		if components?
+			for component in components
+				action(component)
+	
 	@getAll: (ComponentClass) ->
 		Entity.globalEntity.getAll(ComponentClass)
 
