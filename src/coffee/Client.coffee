@@ -22,6 +22,6 @@ class Client
 					)
 				)
 
-		mainLoop()lkjsdf
+		mainLoop()
 
 exports.Client = Client
