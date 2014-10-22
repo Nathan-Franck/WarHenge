@@ -1,4 +1,8 @@
-class Transform extends Component
+class exports.Transform extends Component
+	@fields = [
+		{type: Vector2, var: "position"}
+		{var: "rotation"}
+	]
 	constructor: () ->
 		@position = new Vector2(0, 0)
 		@rotation = 0
@@ -6,5 +10,3 @@ class Transform extends Component
 	getPosition: () -> @position
 	setRotation: (@rotation) -> @
 	getRotation: () -> @rotation
-
-exports.Transform = Transform

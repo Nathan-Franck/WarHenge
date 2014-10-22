@@ -1,4 +1,4 @@
-class Server
+class exports.Server
 
 	coffeescript = require 'coffee-script'
 	jade = require 'jade'
@@ -99,5 +99,3 @@ class Server
 			console.log "	" + command
 	clear: () =>
 		process.stdout.write '\u001B[2J\u001B[0;0f'
-
-exports.Server = Server

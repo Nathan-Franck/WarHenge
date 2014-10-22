@@ -1,4 +1,4 @@
-class RequireHelper
+class exports.RequireHelper
 
 	coffeescript = require 'coffee-script'
 	fs = require 'fs'
@@ -71,7 +71,6 @@ class RequireHelper
 			megaSource += RequireHelper.translateFile fileName, data
 			megaSource += "\n"
 		megaSource = megaSource.replace(/exports/g, "window")
+		megaSource = megaSource.replace(/global/g, "window")
 		#megaSource = uglify.minify(megaSource, {fromString: true})
 		return megaSource
-
-exports.RequireHelper = RequireHelper

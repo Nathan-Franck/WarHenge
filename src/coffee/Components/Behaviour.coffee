@@ -1,4 +1,2 @@
-class Behaviour extends Component
+class exports.Behaviour extends Component
 	update: () ->
-
-exports.Behaviour = Behaviour

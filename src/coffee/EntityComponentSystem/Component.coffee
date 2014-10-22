@@ -7,3 +7,7 @@ class exports.Component
 		DestroySystem.queue @
 	destroy: () ->
 		@entity.remove @
+	type: () ->
+		return @constructor.name
+	toString: () ->
+		return "#{@type()} Component"

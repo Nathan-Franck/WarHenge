@@ -1,7 +1,10 @@
-class Client
+class exports.Client
 	constructor: () ->
+		new InputHandler()
+
 		systems = [
 			new Time()
+			new UnitCommandSystem()
 			new BehaviourSystem()
 			new DestroySystem()
 			new Graphics()
@@ -11,8 +14,8 @@ class Client
 			for system in systems
 				system.update()
 			requestAnimationFrame(mainLoop)
-		
-		for i in [0..10000]
+
+		for i in [0..10]
 			new JigglyCheckmark()
 				.getOrCreate(Transform)
 				.setPosition(
@@ -23,5 +26,3 @@ class Client
 				)
 
 		mainLoop()
-
-exports.Client = Client

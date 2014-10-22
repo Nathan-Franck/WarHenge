@@ -1,4 +1,4 @@
-class FileHelper
+class exports.FileHelper
 
 	fs = require 'fs'
 
@@ -17,5 +17,3 @@ class FileHelper
 			else
 				filter = regExp.exec file
 				if filter? then action file
-
-exports.FileHelper = FileHelper

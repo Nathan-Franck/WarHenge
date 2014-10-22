@@ -1,13 +1,10 @@
-class Entity
-
+class exports.Entity
 	@entities = new Array()
-
 	@foreach: (ComponentClass, action) ->
 		components = Entity.getAll ComponentClass
 		if components?
 			for component in components
 				action(component)
-	
 	@getAll: (ComponentClass) ->
 		Entity.globalEntity.getAll(ComponentClass)
 
@@ -16,9 +13,7 @@ class Entity
 		unless @global
 			Entity.entities.push @
 		@initialize()
-
 	initialize: () ->
-
 	indexOf: (Prototype) ->
 		return Prototype.constructor.name
 	add: (ComponentClass) ->
@@ -58,12 +53,8 @@ class Entity
 				for i in [components.length - 1 .. 0] by -1
 					if components[i] == component
 						components.splice i, 1
-
 	getTransform: ->
 		unless @transform?
 			@transform = @getOrCreate Transform
 		@transform
-
 	@globalEntity = new Entity(true)
-
-exports.Entity = Entity

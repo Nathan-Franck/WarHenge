@@ -1,4 +1,8 @@
-class Vector2
+class exports.Vector2
+	@fields: [
+		{var: "x"}
+		{var: "y"}
+	]
 	@randomInsideCircle: ->
 		t = Math.random() * Math.PI * 2
 		u = Math.random() + Math.random()
@@ -30,5 +34,4 @@ class Vector2
 		@x*v.x + @y*v.y
 	copy: () -> new Vector2 @x, @y
 	equals: (v) -> @x == v.x and @y == v.y
-
-exports.Vector2 = Vector2
+	toString: () -> "Vector2 { x: #{@x} y: #{@y} }"

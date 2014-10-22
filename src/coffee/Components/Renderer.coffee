@@ -1,4 +1,7 @@
-class Renderer extends Component
+class exports.Renderer extends Component
+	@fields = [
+		{var: "image"}
+	]
 	constructor: () ->
 		@image = null
 		@sprite = null
@@ -12,5 +15,3 @@ class Renderer extends Component
 		super
 		if @sprite? and @sprite.parent?
 			@sprite.parent.removeChild @sprite
-
-exports.Renderer = Renderer

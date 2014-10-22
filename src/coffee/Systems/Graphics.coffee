@@ -1,13 +1,20 @@
-class Graphics extends System
+class exports.Graphics extends System
 
-	constructor: (width, height) ->
+	constructor: () ->
 		@images = {}
 		@stage = new PIXI.Stage 0x000000, true
-		@renderer = PIXI.autoDetectRenderer width, height
+		@renderer = PIXI.autoDetectRenderer()
 		@renderer.view.style.position = "absolute"
 		@renderer.view.style.top = "0px"
 		@renderer.view.style.left = "0px"
 		document.body.appendChild @renderer.view
+		window.addEventListener 'resize', @onResize, false
+		@onResize()
+
+	onResize: () =>
+		width = window.innerWidth
+		height = window.innerHeight
+		@renderer.resize width, height
 
 	getImage: (address) =>
 		image = @images[address]
@@ -31,5 +38,3 @@ class Graphics extends System
 				renderer.setSprite(sprite)
 			sprite.position = (renderer.entity.getTransform()).position
 		@renderer.render(@stage);
-
-exports.Graphics = Graphics
