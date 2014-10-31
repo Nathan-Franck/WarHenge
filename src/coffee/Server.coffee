@@ -72,10 +72,10 @@ class exports.Server
 		rl.setPrompt "> ", 2
 		rl.on 'line', @handleConsoleCommand
 		rl.prompt({preserveCursor: true})
-		console.log = () => @consoleOut("log", arguments);
-		console.warn = () => @consoleOut("warn", arguments);
-		console.info = () => @consoleOut("info", arguments);
-		console.error = () => @consoleOut("error", arguments);
+		# console.log = () => @consoleOut("log", arguments);
+		# console.warn = () => @consoleOut("warn", arguments);
+		# console.info = () => @consoleOut("info", arguments);
+		# console.error = () => @consoleOut("error", arguments);
 	handleConsoleCommand: (cmd) =>
 		legal = @commands.indexOf(cmd) >= 0
 		command = this[cmd]

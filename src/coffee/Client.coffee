@@ -25,4 +25,8 @@ class exports.Client
 					)
 				)
 
+		o = (Entity.getAll Transform)[0]
+		str = Serializer.toJSONString Transform, o
+		console.log Serializer.fromJSONString Transform, str, o
+
 		mainLoop()
