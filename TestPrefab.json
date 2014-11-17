@@ -1,0 +1,8 @@
+{"name": "TestPrefab",
+"componentBin": {
+	"Transform": [
+		{"position": {"x": 0, "y": 0}, "rotation": 0},
+		{"position": {"x": 10, "y": 10}, "rotation": 0}
+	]
+}
+}

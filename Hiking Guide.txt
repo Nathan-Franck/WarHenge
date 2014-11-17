@@ -1,0 +1,42 @@
+Hiking Guide:
+
+Currently Found:
+	Entities have components
+	User can click and engine recieves them as events
+	Simple Graphics in place
+
+Long Term Destinations:
+	Simple Game
+		Top Down Shooter
+			ABA games style: procedural, simple graphics
+			Creating and destroying entities
+			Entity collision system
+			Health and Damage components
+			Score system, Point components
+		Platformer
+			Tileset system
+			Simple physics
+			Procedural Tiles?
+				Grass tiles created by rendering many lines onto render texture
+				Animated tiles
+				Simple no frills art style, flat coloring, but nice shapes
+				Each tile is a display function, with a defined loop period for prerendering/caching
+				Tiles could all be rendered out for production game, or kept for faster download, more client processing, given correct browser and OS
+				= Intensely detailed programmer art!
+				This could expand to arbitrary images that are made up of smaller procedures
+					MovieClip {
+						Length #Defines length of movieclip
+						PreRender = True #Default prerenders
+						PreRenderedFrames #Frames stored here
+						Display(RenderTarget, Time) #Display Function
+					}
+					MovieClipSystem {
+						MovieClipAssetList
+						PreRender(FramesPerSecond) #Renders out everything in the list
+					}
+	Networked Game
+		Multiplayer Digging Game - try to find the treasure, buy hats for your character, better shovels
+			Hidden server-side treasure
+			Dynamically expanding game world
+			Dynamic spawning of new treasure
+			Hat/shovel buy menu
