@@ -7,6 +7,6 @@ class exports.UnitCommandSystem extends System
 		Event.register MouseDownEvent, @onClickEvent
 	onClickEvent: (e) ->
 		for commandable in Entity.getAll Commandable
-			distance = (commandable.getEntity().get Transform).position.distance e.position
+			distance = (commandable.entity.get Transform).position.distance e.position
 			if distance < 50
 				console.log "Such click!" + e.position

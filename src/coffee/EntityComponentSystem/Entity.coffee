@@ -1,32 +1,23 @@
 class exports.Entity
-	@entities = new Array()
 	@foreach: (ComponentClass, action) ->
 		components = Entity.getAll ComponentClass
 		if components?
 			for component in components
 				action(component)
 	@getAll: (ComponentClass) ->
-		Entity.globalEntity.getAll(ComponentClass)
-
-	constructor: (@global = false) ->
-		@componentBin = {}
-		unless @global
-			Entity.entities.push @
-		@initialize()
-	initialize: () ->
+		Entity.GlobalEntity.getAll(ComponentClass)
+	constructor: (@isGlobal = false) ->
 	indexOf: (Prototype) ->
 		return Prototype.constructor.name
 	add: (ComponentClass) ->
 		newComponent = new ComponentClass();
 		@addExisting newComponent, ComponentClass.prototype
-		unless @global
-			Entity.globalEntity.addExisting newComponent, ComponentClass.prototype
-			newComponent.setEntity @
+		unless @isGlobal
+			Entity.GlobalEntity.addExisting newComponent, ComponentClass.prototype
+			newComponent.entity = @
+		return newComponent
 	addExisting: (newComponent, Prototype) ->
 		components = @getAll(Prototype.constructor)
-		if !(components?)
-			components = new Array()
-			@componentBin[@indexOf Prototype] = components
 		components.push newComponent
 		parentPrototype = Prototype.constructor.__super__
 		if parentPrototype? and (@indexOf parentPrototype)? 
@@ -41,13 +32,18 @@ class exports.Entity
 		if component? then return component
 		return @add ComponentClass
 	getAll: (ComponentClass) ->
+		if !(@componentBin?) then @componentBin = {}
 		components = @componentBin[@indexOf ComponentClass.prototype]
-		if !(components?) then return null
+		if !(components?) 
+			components = new Array()
+			@componentBin[@indexOf ComponentClass.prototype] = components
+			return components;
 		return components
 	remove: (component) ->
-		unless @global
-			Entity.globalEntity.remove component
+		unless @isGlobal
+			Entity.GlobalEntity.remove component
 		ComponentClass = component.constructor
+		if !(@componentBin?) then @componentBin = {}
 		for key, components of @componentBin
 			if components?
 				for i in [components.length - 1 .. 0] by -1
@@ -56,5 +52,5 @@ class exports.Entity
 	getTransform: ->
 		unless @transform?
 			@transform = @getOrCreate Transform
-		@transform
-	@globalEntity = new Entity(true)
+		return @transform
+	@GlobalEntity = new Entity(true)

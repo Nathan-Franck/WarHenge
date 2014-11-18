@@ -5,12 +5,7 @@ class exports.Renderer extends Component
 	constructor: () ->
 		@image = null
 		@sprite = null
-	setImage: (@image) -> @
-	getImage: () -> @image
-	setSprite: (@sprite) -> @
-	getSprite: () -> @sprite
-	setTint: (@tint) -> @
-	getTint: () -> @tint
+		@tint = 0xFFFFFF
 	destroy: () ->
 		super
 		if @sprite? and @sprite.parent?

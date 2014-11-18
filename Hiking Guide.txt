@@ -24,16 +24,20 @@ Long Term Destinations:
 				Tiles could all be rendered out for production game, or kept for faster download, more client processing, given correct browser and OS
 				= Intensely detailed programmer art!
 				This could expand to arbitrary images that are made up of smaller procedures
-					MovieClip {
+					MovieClip extends Renderer {
+						#Upon definition, adds itself to MovieClipSystem's asset list
 						Length #Defines length of movieclip
+						Bounds #min and max x, y values - a tile might be 1x1 meter, centered at 0,0
 						PreRender = True #Default prerenders
 						PreRenderedFrames #Frames stored here
 						Display(RenderTarget, Time) #Display Function
+						
 					}
 					MovieClipSystem {
 						MovieClipAssetList
-						PreRender(FramesPerSecond) #Renders out everything in the list
+						PreRender(FramesPerSecond, ResolutionPerMeter) #Renders out everything in the list
 					}
+				Random note: Is there a 3D alternative for this process? It's basically rasterizing and quantizing something that's normally vector and infinitesimal - so... turning a 3D model into a 3D texture I suppose - 4D including animation. Although the assumption is that the rasterization will result in an increased performance, whereas tracing through a 3D texture is usually more intensive, unless the volume is a really small segment of the screen and the steps are pretty small.
 	Networked Game
 		Multiplayer Digging Game - try to find the treasure, buy hats for your character, better shovels
 			Hidden server-side treasure

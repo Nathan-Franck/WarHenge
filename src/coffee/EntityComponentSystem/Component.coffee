@@ -1,6 +1,6 @@
 class exports.Component
-	setEntity: (@entity) -> @
-	getEntity: () -> @entity
+	constructor: () ->
+		@entity = null
 	serialize: () -> {}
 	deserialize: (obj) -> @
 	kill: () ->

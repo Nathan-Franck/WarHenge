@@ -28,13 +28,12 @@ class exports.Graphics extends System
 		return image
 
 	update: () =>
-		for renderer in Entity.getAll Renderer
-			sprite = renderer.getSprite()
-			if sprite == null
+		renderers = Entity.getAll Renderer
+		for renderer in renderers
+			if renderer.sprite == null
 				image = @getImage renderer.image
-				sprite = new PIXI.Sprite(image)
-				sprite.tint = renderer.getTint()
-				@stage.addChild sprite
-				renderer.setSprite(sprite)
-			sprite.position = (renderer.entity.getTransform()).position
+				renderer.sprite = new PIXI.Sprite(image)
+				renderer.sprite.tint = renderer.tint
+				@stage.addChild renderer.sprite
+			renderer.sprite.position = (renderer.entity.getTransform()).position
 		@renderer.render(@stage);

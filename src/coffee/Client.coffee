@@ -10,23 +10,33 @@ class exports.Client
 			new Graphics()
 		]
 
+		playing = true
+
+		document.addEventListener("focus", () -> 
+			console.log "Resuming!"
+			mainLoop()
+		, true)
 		mainLoop = () ->
 			for system in systems
 				system.update()
-			requestAnimationFrame(mainLoop)
+			if document.hasFocus()
+				requestAnimationFrame(mainLoop)
+			else
+				console.log "Pausing..."
 
 		for i in [0..10]
-			new JigglyCheckmark()
+			(new JigglyCheckmark())
 				.getOrCreate(Transform)
-				.setPosition(
+				.position =
 					new Vector2(
 						Math.random() * 800
 						Math.random() * 600
 					)
-				)
 
 		o = (Entity.getAll Transform)[0]
-		str = Serializer.toJSONString Transform, o
-		console.log Serializer.fromJSONString Transform, str, o
+		if (o?)
+			console.log o
+			str = Serializer.toJSONString Transform, o
+			console.log Serializer.fromJSONString Transform, str, o
 
 		mainLoop()
