@@ -24,7 +24,7 @@ class exports.Client
 			else
 				console.log "Pausing..."
 
-		for i in [0..10]
+		for i in [0..10000]
 			(new JigglyCheckmark())
 				.getOrCreate(Transform)
 				.position =
