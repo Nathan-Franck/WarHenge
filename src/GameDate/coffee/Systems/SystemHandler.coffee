@@ -1,5 +1,5 @@
 class exports.SystemHandler extends System
 	constructor: (@systems) ->
-	update: () ->
+	update: () =>
 		for system in @systems
 			system.update()
