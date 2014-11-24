@@ -7,7 +7,7 @@ class exports.DocumentLoop extends System
 			true
 		)
 		@mainLoop()
-	mainLoop: () ->exports.
+	mainLoop: () ->
 		@func()
 		if document.hasFocus()
 			requestAnimationFrame(@mainLoop)
