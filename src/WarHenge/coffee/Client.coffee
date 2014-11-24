@@ -20,5 +20,3 @@ class exports.Client
 				new Graphics()
 			]).update
 		)
-		
-		mainLoop()
