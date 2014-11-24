@@ -1,6 +1,11 @@
 class exports.DocumentLoop extends System
 	constructor: (@func) ->
-		document.addEventListener("focus", () -> mainLoop(), true)
+		document.addEventListener(
+			"focus" 
+			() -> 
+				mainLoop()
+			true
+		)
 		@mainLoop()
 	mainLoop: () ->exports.
 		@func()
