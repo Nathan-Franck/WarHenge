@@ -1,13 +1,14 @@
 class exports.DocumentLoop extends System
-	constructor: (@func) ->
+	update: () ->
+	constructor: (@update) ->
 		document.addEventListener(
 			"focus" 
 			() -> 
-				mainLoop()
+				@mainLoop()
 			true
 		)
 		@mainLoop()
 	mainLoop: () ->
-		@func()
+		@update()
 		if document.hasFocus()
 			requestAnimationFrame(@mainLoop)
