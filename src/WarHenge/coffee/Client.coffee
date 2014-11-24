@@ -10,7 +10,7 @@ class exports.Client
 						Math.random() * 600
 					)
 
-		new DocumentLoop(() ->
+		new DocumentLoop(
 			new SystemHandler([
 				new InputHandler()
 				new Time()
