@@ -24,3 +24,11 @@ class exports.Serializer
 		return Serializer.fromJSON type, (JSON.parse json), o
 	@toJSONString: (type, o) ->
 		return JSON.stringify Serializer.toJSON type, o
+
+class SerializerTester
+	genericTest: () ->
+		o = (Entity.getAll Transform)[0]
+		if (o?)
+			console.log o
+			str = Serializer.toJSONString Transform, o
+			console.log Serializer.fromJSONString Transform, str, o

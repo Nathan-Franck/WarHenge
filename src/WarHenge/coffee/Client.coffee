@@ -1,28 +1,5 @@
 class exports.Client
 	constructor: () ->
-		new InputHandler()
-
-		systems = [
-			new Time()
-			new UnitCommandSystem()
-			new BehaviourSystem()
-			new DestroySystem()
-			new Graphics()
-		]
-
-		playing = true
-
-		document.addEventListener("focus", () -> 
-			console.log "Resuming!"
-			mainLoop()
-		, true)
-		mainLoop = () ->
-			for system in systems
-				system.update()
-			if document.hasFocus()
-				requestAnimationFrame(mainLoop)
-			else
-				console.log "Pausing..."
 
 		for i in [0..100]
 			(new JigglyCheckmark())
@@ -33,10 +10,15 @@ class exports.Client
 						Math.random() * 600
 					)
 
-		o = (Entity.getAll Transform)[0]
-		if (o?)
-			console.log o
-			str = Serializer.toJSONString Transform, o
-			console.log Serializer.fromJSONString Transform, str, o
-
+		new DocumentLoop(() ->
+			new SystemHandler([
+				new InputHandler()
+				new Time()
+				new UnitCommandSystem()
+				new BehaviourSystem()
+				new DestroySystem()
+				new Graphics()
+			]).update
+		)
+		
 		mainLoop()

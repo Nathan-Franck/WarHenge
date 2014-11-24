@@ -1,4 +1,4 @@
-class exports.InputHandler
+class exports.InputHandler extends System
 	constructor: () ->
 		document.oncontextmenu = () -> false
 		document.addEventListener 'mousedown', (e) -> 
